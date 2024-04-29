@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ActivityIndicator,Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = ({ onLoginSuccess }) => {
@@ -15,10 +15,10 @@ const LoginScreen = ({ onLoginSuccess }) => {
       if (email === 'shubhamkumarjnu@gmail.com' && password === 'shubham') {
         onLoginSuccess();  // Update the global state on successful login
       } else {
-        console.error('Invalid credentials');
+        Alert.alert('Login Failed', 'Invalid credentials');
       }
       setIsLoading(false);
-    }, 2000);
+    }, 500);
   };;
 
   const handleRegistration = () => {

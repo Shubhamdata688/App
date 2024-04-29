@@ -18,9 +18,10 @@ const StackNav = () => (
 
 // Create drawer navigator
 const Drawer = createDrawerNavigator();
-const DrawerNav = () => (
+
+const DrawerNav = ({ handleLogout }) => (
   <Drawer.Navigator
-    drawerContent={(props) => <DrawerContent {...props} />}
+    drawerContent={(props) => <DrawerContent {...props} onLogout={handleLogout}/>}
     screenOptions={{
       drawerStyle: {
         backgroundColor: '#c6cbef',
@@ -33,15 +34,20 @@ const DrawerNav = () => (
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const handleLoginSuccess = useCallback(() => {
     setIsLoggedIn(true);
   }, []);
-  
+
+  const handleLogout = useCallback(() => {
+    setIsLoggedIn(false); // Set isLoggedIn to false to logout
+  }, []);
+
   // Conditional rendering based on authentication state
   return (
     <NavigationContainer>
       {isLoggedIn ? (
-        <DrawerNav />
+        <DrawerNav handleLogout={handleLogout} /> 
       ) : (
         <Stack.Navigator initialRouteName="Login">
           <Stack.Screen name="Login">
