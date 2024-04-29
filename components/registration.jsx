@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-
+// import { Neomorph } from 'react-native-neomorph-shadows';
 const RegistrationScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -9,6 +9,7 @@ const RegistrationScreen = () => {
     // Logic for handling registration (e.g., API call, validation)
     console.log('Email:', email);
     console.log('Password:', password);
+    
     // Navigate to another screen upon successful registration
   };
 

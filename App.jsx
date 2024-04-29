@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { StatusBar } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
@@ -28,7 +29,7 @@ const DrawerNav = ({ handleLogout }) => (
         borderTopEndRadius:50,
       },}} // Set background color of the drawer
   >
-    <Drawer.Screen name="StackNav" component={StackNav} options={{ headerShown: true }} />
+    <Drawer.Screen name="StackNav" component={StackNav} options={{ headerShown: false }} />
   </Drawer.Navigator>
 );
 
@@ -46,11 +47,14 @@ const App = () => {
   // Conditional rendering based on authentication state
   return (
     <NavigationContainer>
+      <StatusBar backgroundColor="red" barStyle="light-content" />
       {isLoggedIn ? (
         <DrawerNav handleLogout={handleLogout} /> 
       ) : (
         <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Login">
+          <Stack.Screen name="Login"
+            options={{ headerShown: false }}
+          >
             {props => <LoginScreen {...props} onLoginSuccess={handleLoginSuccess} />}
           </Stack.Screen>
           <Stack.Screen name="Registration" component={RegistrationScreen} />
