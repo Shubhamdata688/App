@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import AssetExample from './components/AssetExample';
 import DrawerContent from './components/drowerContent';
 import LoginScreen from './components/login';
-import RegistrationScreen from './components/reg';
+import RegistrationScreen from './components/registration';
+import ResetPasswordScr from './components/forgetpassword';
 
 // Create stack navigator for screens other than Login and Registration
 const Stack = createNativeStackNavigator();
@@ -31,8 +32,11 @@ const DrawerNav = () => (
 );
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const handleLoginSuccess = useCallback(() => {
+    setIsLoggedIn(true);
+  }, []);
+  
   // Conditional rendering based on authentication state
   return (
     <NavigationContainer>
@@ -40,8 +44,11 @@ const App = () => {
         <DrawerNav />
       ) : (
         <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Login">
+            {props => <LoginScreen {...props} onLoginSuccess={handleLoginSuccess} />}
+          </Stack.Screen>
           <Stack.Screen name="Registration" component={RegistrationScreen} />
+          <Stack.Screen name="ResetPasswordScr" component={ResetPasswordScr} />
         </Stack.Navigator>
       )}
     </NavigationContainer>
