@@ -9,9 +9,9 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const DrawerList = [
   { icon: 'home-outline', label: 'Home', navigateTo: 'Home' },
   { icon: 'account-multiple', label: 'Profile', navigateTo: 'Profile' },
-  { icon: 'account-group', label: 'User', navigateTo: 'User' },
-  { icon: 'bookshelf', label: 'Library', navigateTo: 'Library' }, // Assuming you have a 'Library' screen
-];
+  { icon: 'bell-badge-outline', label: 'Notification', navigateTo: 'Notification' },
+  { icon: 'bell-badge-outline', label: 'Details', navigateTo: 'Details' },
+  { icon: 'bookshelf', label: 'Download', navigateTo: 'Download' }, ]
 
 const DrawerLayout = ({ icon, label, navigateTo }) => {
   const navigation = useNavigation();

@@ -8,14 +8,20 @@ import DrawerContent from './components/drowerContent';
 import LoginScreen from './components/login';
 import RegistrationScreen from './components/registration';
 import ResetPasswordScr from './components/forgetpassword';
+import HomeScrFun from './components/DScreen/Home';
+import ProfileScrFun from './components/DScreen/Profile';
+import NotificationScrFun from './components/DScreen/Notification';
+import DetailsViewScrFun from './components/DScreen/DetailsView';
+import DownloadScrFun from './components/DScreen/DownloadReportFilter';
 
-// Create stack navigator for screens other than Login and Registration
-const Stack = createNativeStackNavigator();
-const StackNav = () => (
-  <Stack.Navigator initialRouteName="Home">
-    <Stack.Screen name="AssetExample" component={AssetExample}  options={{ headerShown: false }} />
-  </Stack.Navigator>
-);
+// // Create stack navigator for screens other than Login and Registration
+// const Stack = createNativeStackNavigator();
+// const StackNav = () => (
+//   <Stack.Navigator initialRouteName="Home">
+//     <Stack.Screen name="Home" component={HomeScrFun}  options={{ headerShown: false }} />
+//     <Stack.Screen name="AssetExample" component={AssetExample}  options={{ headerShown: false }} />
+//   </Stack.Navigator>
+// );
 
 // Create drawer navigator
 const Drawer = createDrawerNavigator();
@@ -28,13 +34,18 @@ const DrawerNav = ({ handleLogout }) => (
         backgroundColor: '#c6cbef',
         borderTopEndRadius:50,
       },}} // Set background color of the drawer
+      initialRouteName="Home"
   >
-    <Drawer.Screen name="StackNav" component={StackNav} options={{ headerShown: false }} />
+    <Drawer.Screen name="Home" component={HomeScrFun} options={{ headerShown: true }} />
+    <Drawer.Screen name="Profile" component={ProfileScrFun} options={{ headerShown: true }} />
+    <Drawer.Screen name="Notification" component={NotificationScrFun} options={{ headerShown: true }} />
+    <Drawer.Screen name="Details" component={DetailsViewScrFun} options={{ headerShown: true }} />
+    <Drawer.Screen name="Download" component={DownloadScrFun} options={{ headerShown: true }} />
   </Drawer.Navigator>
 );
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const handleLoginSuccess = useCallback(() => {
     setIsLoggedIn(true);
@@ -52,7 +63,7 @@ const App = () => {
         <DrawerNav handleLogout={handleLogout} /> 
       ) : (
         <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Login"
+          <Stack.Screen name="Login"h
             options={{ headerShown: false }}
           >
             {props => <LoginScreen {...props} onLoginSuccess={handleLoginSuccess} />}

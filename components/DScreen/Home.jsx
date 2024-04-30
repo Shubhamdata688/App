@@ -1,10 +1,10 @@
 import { Text, View, StyleSheet, Image } from 'react-native';
 
-export default function AssetExample() {
+export default function HomeScrFun() {
   return (
     <View style={styles.container}>
       <Text style={styles.paragraph}>
-        Local files and assets can be imported by dragging and dropping them into the editor
+        home screen
       </Text>
     </View>
   );
@@ -23,8 +23,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  logo: {
-    height: 128,
-    width: 128,
-  }
 });

@@ -1,10 +1,10 @@
 import { Text, View, StyleSheet, Image } from 'react-native';
 
-export default function AssetExample() {
+export default function DetailsViewScrFun() {
   return (
     <View style={styles.container}>
       <Text style={styles.paragraph}>
-        Local files and assets can be imported by dragging and dropping them into the editor xvfjdvnfdk
+        Details view screen
       </Text>
     </View>
   );
@@ -14,8 +14,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'red',
-    top: 0,
+    padding: 24,
   },
   paragraph: {
     margin: 24,
@@ -24,8 +23,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
-  logo: {
-    height: 128,
-    width: 128,
-  }
 });
