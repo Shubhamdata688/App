@@ -82,7 +82,7 @@ function DrawerContent(props) {
       </View>
       <DrawerContentScrollView {...props}>
         <View style={styles.drawerContent}>
-          <TouchableOpacity activeOpacity={0.8}>
+          <TouchableOpacity activeOpacity={1}>
             <View style={styles.userInfoSection}>
               <FontAwesomeIcon name="user-astronaut" size={60} color="white" solid />
               <View style={{ marginLeft: 5 }}>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, ActivityIndicator,Alert } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, ActivityIndicator,Alert, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const LoginScreen = ({ onLoginSuccess }) => {
@@ -31,6 +31,14 @@ const LoginScreen = ({ onLoginSuccess }) => {
 
   return (
     <View style={styles.container}>
+      {/* Absolute positioning for the image */}
+      <View style={styles.imageContainer}>
+        <Image
+          source={require('../assets/image/headerVector.png')}
+          style={styles.image}
+          resizeMode="stretch"
+        />
+      </View>
       <Text>Login Screen</Text>
       <TextInput
         style={styles.input}
@@ -54,7 +62,7 @@ const LoginScreen = ({ onLoginSuccess }) => {
         <>
           <Button title="Login" onPress={handleLogin} disabled={isLoading} />
           <Button title="Register" onPress={handleRegistration} />
-          <Button title="Forgot Password"  onPress={handleRestPass}/>
+          <Button title="Forgot Password" onPress={handleRestPass} />
         </>
       )}
     </View>
@@ -66,6 +74,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  imageContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+  },
+  image: {
+    width: '100%',
+    height: 100,
   },
   input: {
     width: '80%',
