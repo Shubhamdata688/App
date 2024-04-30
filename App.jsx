@@ -13,17 +13,8 @@ import ProfileScrFun from './components/DScreen/Profile';
 import NotificationScrFun from './components/DScreen/Notification';
 import DetailsViewScrFun from './components/DScreen/DetailsView';
 import DownloadScrFun from './components/DScreen/DownloadReportFilter';
+import Vcolor from './global';
 
-// // Create stack navigator for screens other than Login and Registration
-// const Stack = createNativeStackNavigator();
-// const StackNav = () => (
-//   <Stack.Navigator initialRouteName="Home">
-//     <Stack.Screen name="Home" component={HomeScrFun}  options={{ headerShown: false }} />
-//     <Stack.Screen name="AssetExample" component={AssetExample}  options={{ headerShown: false }} />
-//   </Stack.Navigator>
-// );
-
-// Create drawer navigator
 const Drawer = createDrawerNavigator();
 
 const DrawerNav = ({ handleLogout }) => (
@@ -31,7 +22,7 @@ const DrawerNav = ({ handleLogout }) => (
     drawerContent={(props) => <DrawerContent {...props} onLogout={handleLogout}/>}
     screenOptions={{
       drawerStyle: {
-        backgroundColor: '#c6cbef',
+        backgroundColor:Vcolor.primary,
         borderTopEndRadius:50,
       },}} // Set background color of the drawer
       initialRouteName="Home"
@@ -45,6 +36,7 @@ const DrawerNav = ({ handleLogout }) => (
 );
 
 const App = () => {
+  const Stack = createNativeStackNavigator();
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   const handleLoginSuccess = useCallback(() => {
@@ -58,12 +50,12 @@ const App = () => {
   // Conditional rendering based on authentication state
   return (
     <NavigationContainer>
-      <StatusBar backgroundColor="red" barStyle="light-content" />
+      <StatusBar backgroundColor={Vcolor.primary} barStyle="light-content" />
       {isLoggedIn ? (
         <DrawerNav handleLogout={handleLogout} /> 
       ) : (
         <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Login"h
+          <Stack.Screen name="Login"
             options={{ headerShown: false }}
           >
             {props => <LoginScreen {...props} onLoginSuccess={handleLoginSuccess} />}

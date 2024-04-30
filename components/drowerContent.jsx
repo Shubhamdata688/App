@@ -5,21 +5,25 @@ import { Avatar, Title } from 'react-native-paper';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome5';
+import FontAwesomeIcon1 from 'react-native-vector-icons/FontAwesome';
+import Vcolor from '../global';
 
 const DrawerList = [
-  { icon: 'home-outline', label: 'Home', navigateTo: 'Home' },
-  { icon: 'account-multiple', label: 'Profile', navigateTo: 'Profile' },
-  { icon: 'bell-badge-outline', label: 'Notification', navigateTo: 'Notification' },
-  { icon: 'bell-badge-outline', label: 'Details', navigateTo: 'Details' },
-  { icon: 'bookshelf', label: 'Download', navigateTo: 'Download' }, ]
+  { icon: 'server', label: 'Home', navigateTo: 'Home' },
+  { icon: 'card-account-details', label: 'Profile', navigateTo: 'Profile' },
+  { icon: 'bell-badge', label: 'Notification', navigateTo: 'Notification' },
+  { icon: 'ballot', label: 'Details', navigateTo: 'Details' },
+  { icon: 'cloud-download', label: 'Download', navigateTo: 'Download' }, ]
 
 const DrawerLayout = ({ icon, label, navigateTo }) => {
   const navigation = useNavigation();
   return (
     <DrawerItem
-      icon={({ color, size }) => <Icon name={icon} color={color} size={size} />}
+      icon={({ color, size }) => <Icon name={icon} color= 'white' size={size} />}
       label={label}
       onPress={() => navigation.navigate(navigateTo)}
+      labelStyle={{ color: 'white', fontSize: 18 }}
     />
   );
 };
@@ -37,7 +41,7 @@ const DrawerItems = () => {
 
 function DrawerContent(props) {
   const { onLogout } = props;
-
+  // const navigation = useNavigation();
   const handleSignOut = () => {
     // Display an Alert dialog with a confirmation request
     Alert.alert(
@@ -61,38 +65,48 @@ function DrawerContent(props) {
     );
   };
 
+  const userprofile ={
+    name: 'shubham kumar',
+    email:'shubham@gmail.com',
+    role:'admin'
+  };
+
   return (
     <View style={{ flex: 1 }}>
+      <View style={styles.drowertogelcloseangle}>
+        <TouchableOpacity
+          onPress={() => props.navigation.closeDrawer()}
+        >
+          <FontAwesomeIcon1 name="angle-left" size={40} color="white" solid />
+        </TouchableOpacity>
+      </View>
       <DrawerContentScrollView {...props}>
         <View style={styles.drawerContent}>
           <TouchableOpacity activeOpacity={0.8}>
             <View style={styles.userInfoSection}>
-              <Avatar.Image
-                source={{
-                  uri: 'https://www.example.com/avatar.png', // Use an appropriate avatar image URL
-                }}
-                size={50}
-              />
-              <View style={{ marginLeft: 10 }}>
-                <Title style={styles.title}>Adarsh</Title>
+              <FontAwesomeIcon name="user-astronaut" size={60} color="white" solid />
+              <View style={{ marginLeft: 5 }}>
+                <Title style={styles.title}>{userprofile.name}</Title>
                 <Text style={styles.caption} numberOfLines={1}>
-                  adarshthakur210@gmail.com
+                  {userprofile.email}
                 </Text>
+                <Text style={styles.title}>Role: {userprofile.role}</Text>
               </View>
             </View>
           </TouchableOpacity>
           <View style={styles.drawerSection}>
-            <DrawerItems />
+            <DrawerItems /> 
           </View>
         </View>
       </DrawerContentScrollView>
       <View style={styles.bottomDrawerSection}>
         <DrawerItem
           icon={({ color, size }) => (
-            <Icon name="exit-to-app" color={color} size={size} />
+            <Icon name="exit-to-app" color='white' size={size} />
           )}
           label="Sign Out"
           onPress={handleSignOut}
+          labelStyle={{ color: 'white', fontSize: 18 }}
         />
       </View>
     </View>
@@ -102,9 +116,17 @@ function DrawerContent(props) {
 export default DrawerContent;
 
 const styles = StyleSheet.create({
+  drowertogelcloseangle:{
+    marginTop:40,
+    justifyContent:'flex-end',
+    alignItems:'flex-end',
+    marginRight:40,
+    // marginLeft:10,
+  },
   drawerContent: {
     flex: 1,
     borderTopEndRadius: 50,
+    marginTop: 10,
   },
   userInfoSection: {
     paddingLeft: 20,
@@ -113,11 +135,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 3,
     fontWeight: 'bold',
+    color: 'white',
   },
   caption: {
     fontSize: 13,
     lineHeight: 14,
     width: '100%',
+    color:'white'
   },
   drawerSection: {
     marginTop: 15,
