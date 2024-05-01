@@ -27,7 +27,7 @@ const DrawerNav = ({ handleLogout }) => (
       },}} // Set background color of the drawer
       initialRouteName="Home"
   >
-    <Drawer.Screen name="Home" component={HomeScrFun} options={{ headerShown: true }} />
+    <Drawer.Screen name="Home" component={HomeScrFun} options={{ headerShown: false }} />
     <Drawer.Screen name="Profile" component={ProfileScrFun} options={{ headerShown: true }} />
     <Drawer.Screen name="Notification" component={NotificationScrFun} options={{ headerShown: true }} />
     <Drawer.Screen name="Details" component={DetailsViewScrFun} options={{ headerShown: true }} />
