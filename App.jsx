@@ -22,7 +22,7 @@ const DrawerNav = ({ handleLogout }) => (
     drawerContent={(props) => <DrawerContent {...props} onLogout={handleLogout}/>}
     screenOptions={{
       drawerStyle: {
-        backgroundColor:Vcolor.primary,
+        backgroundColor:Vcolor.liteprimary,
         borderTopEndRadius:50,
       },}} // Set background color of the drawer
       initialRouteName="Home"
@@ -50,7 +50,7 @@ const App = () => {
   // Conditional rendering based on authentication state
   return (
     <NavigationContainer>
-      <StatusBar backgroundColor={Vcolor.primary} barStyle="light-content" />
+      <StatusBar backgroundColor={Vcolor.liteprimary} barStyle="light-content" />
       {isLoggedIn ? (
         <DrawerNav handleLogout={handleLogout} /> 
       ) : (
