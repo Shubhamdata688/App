@@ -88,7 +88,6 @@ export default function HomeScrFun() {
   ];
   const sortedData = data.slice().sort((a, b) => a.name.localeCompare(b.name));
   const navigation = useNavigation();
-  const [TodayDate, setTodayDate] = useState('Fri, Nov 13 2017')
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedDate, setSelectedDate] = useState('');
@@ -122,7 +121,7 @@ export default function HomeScrFun() {
   };
 
   const formatDate = (dateString) => {
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
     const dateObj = new Date(dateString);
     return dateObj.toLocaleDateString(undefined, options);
   };
@@ -152,14 +151,16 @@ export default function HomeScrFun() {
       </View>
 
       {/* for toget drower nav icon  */}
-      <View style={{ flexDirection: 'row', marginStart: 20, marginTop: 10 }}>
-        <TouchableOpacity
+      <TouchableOpacity
           onPress={() => navigation.toggleDrawer()}
         >
+      <View style={{ flexDirection: 'row', marginStart: 20, marginTop: 10 }}>
+        
           <FontAwesomeIcon name="xing" size={25} color="white" solid />
-        </TouchableOpacity>
+        
         <Text style={{ marginStart: 20, fontSize: 19, fontStyle: 'italic', fontWeight: 600, color: 'white' }}>W H M</Text>
       </View>
+      </TouchableOpacity>
 
       {/* date filter row  */}
       <View style={{ marginTop: -15 }}>
@@ -174,18 +175,19 @@ export default function HomeScrFun() {
 
         {/* this is for search  */}
         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 15, }}>
+
           {/* left arrow  */}
-          <View style={{ width: '10%', alignItems: 'flex-start' }}>
+          <View style={{ width: '15%', alignItems: 'flex-start' }}>
             <TouchableOpacity
-              style={{ marginLeft: 20 }}
+              style={{ marginLeft: 25 }}
               onPress={handlePreviousDate}
             >
-              <AntDesignIcon name="arrowleft" size={20} color="white" solid />
+              <AntDesignIcon name="arrowleft" size={25} color="white" solid />
             </TouchableOpacity>
           </View>
 
           {/* Date test  */}
-          <View style={{ justifyContent: 'center', alignItems: 'center', width: '80%' }}>
+          <View style={{ justifyContent: 'center', alignItems: 'center', width: '70%' }}>
             <TouchableOpacity
               style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}
               onPress={openModal}
@@ -203,12 +205,12 @@ export default function HomeScrFun() {
           </View>
 
           {/* right arrow  */}
-          <View style={{ width: '10%', alignItems: 'flex-end' }}>
+          <View style={{ width: '15%', alignItems: 'flex-end'}}>
             <TouchableOpacity
               style={{ marginRight: 20 }}
               onPress={handleNextDate}
             >
-              <AntDesignIcon name="arrowright" size={20} color="white" solid />
+              <AntDesignIcon name="arrowright" size={25} color="white" solid />
             </TouchableOpacity>
           </View>
 
@@ -266,7 +268,7 @@ export default function HomeScrFun() {
           // </View>
 
           // box 
-          <View style={{ marginTop: 10, height: 75, justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{ marginTop: 10, height: 75, justifyContent: 'center', alignItems: 'center',elevation:10 }}>
             <View style={{ width: '97%', height: '100%', borderWidth: 1, borderColor: Vcolor.liteprimary, flexDirection: 'row', borderRadius: 10, padding: 5, paddingHorizontal: 10 }}>
 
               {/* water hole id or name and addresssection  */}
