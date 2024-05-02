@@ -1,26 +1,19 @@
-import { Text, View, StyleSheet, Image } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import { useRoute } from '@react-navigation/native'; // Import useRoute hook from React Navigation
 
-export default function DetailsViewScrFun() {
+
+const DetailsViewScrFun = () => {
+  const route = useRoute(); // Use the useRoute hook to access navigation parameters
+  const itemId = route.params?.itemId; // Get the itemId parameter from navigation
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.paragraph}>
-        Details view screen
-      </Text>
+    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Text>Details Screen</Text>
+      <Text>Item ID: {itemId}</Text> {/* Display the itemId parameter */}
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 24,
-  },
-  paragraph: {
-    margin: 24,
-    marginTop: 0,
-    fontSize: 14,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-});
+export default DetailsViewScrFun;
+

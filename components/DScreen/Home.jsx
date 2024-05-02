@@ -315,10 +315,11 @@ export default function HomeScrFun() {
                   {/* view btn box  */}
                   <View style={{ width: 60, height: 20, borderWidth: 1, borderColor: Vcolor.primary, borderRadius: 20 }}>
 
-                    <TouchableOpacity style={{ width: '100%', height: '100%', alignItems: 'flex-end', flexDirection: 'row' }}>
+                    <TouchableOpacity style={{ width: '100%', height: '100%', alignItems: 'flex-end', flexDirection: 'row' }}
+                     onPress={() => navigation.navigate('Details', { itemId: item.id })} // Pass item ID to Details screen
+                    >
                       {/* view text  */}
                       <Text style={{ color: Vcolor.primary, fontSize: 12, fontWeight: 400, textAlign: 'center', textAlignVertical: 'center', height: '100%', flex: 1 }}>View</Text>
-
                       {/* reightarrow icon  */}
                       <View style={{ backgroundColor: Vcolor.primary, borderTopStartRadius: 20, borderTopEndRadius: 20, borderBottomEndRadius: 20, height: '100%', width: 15, justifyContent: 'center', alignItems: 'center' }}>
                         <AntDesignIcon name="right" size={15} color="white" solid />
