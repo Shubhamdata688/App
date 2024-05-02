@@ -1,6 +1,6 @@
 import React from 'react';
 import { SvgXml } from 'react-native-svg';
-
+import Vcolor from '../../global';
 const WaterDropIcon = ({ width, height, levelfrom }) => {
 
   // const [level, setLevel] = useState(0); // Initializing level state with 0
@@ -11,7 +11,7 @@ const WaterDropIcon = ({ width, height, levelfrom }) => {
   // }, []);
 
   // Initialize pathColors array with default color for all paths
-  const colors = Array(10).fill("#9FCBA5");
+  const colors = Array(10).fill(Vcolor.secondary);
 
   // Assign blue colors to the first `level` paths
   for (let i = 0; i < levelfrom; i++) {

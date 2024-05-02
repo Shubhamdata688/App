@@ -1,13 +1,68 @@
-import { FlatList, Text, View, StyleSheet, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { FlatList, Text, View, StyleSheet, Image, Modal, Button } from 'react-native';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 
 
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
 import Vcolor from '../../global';
 import WaterDropIcon from '../svg/WaterDrop';
+
+
+
+// date picker 
+import DatePicker from 'react-native-modern-datepicker';
+
+const DateSelectorModal = ({ isVisible, onClose, onDateSelect }) => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const convertDateFormat = (dateString) => {
+    // Split the date string into parts
+    const [year, month, day] = dateString.split('/');
+  
+    // Concatenate the parts with hyphens
+    const formattedDate = `${year}-${month}-${day}`;
+  
+    setSelectedDate(formattedDate) ;
+  };
+
+  return (
+    <Modal
+      visible={isVisible}
+      animationType="slide"
+      transparent={true}
+      onRequestClose={onClose}
+    >
+      <View style={{ flex: 1, backgroundColor: 'rgba(166,217,248,0.7)', justifyContent: 'center' }}>
+        <View style={{ backgroundColor: 'white', padding: 20 }}>
+          <Text style={{ textAlign: 'center', backgroundColor: 'white', padding: 10, borderWidth: 1, borderColor: Vcolor.primary, color: Vcolor.primary, borderRadius: 50, fontWeight: 700 }}>Select Date</Text>
+          <DatePicker
+            onSelectedChange={date => convertDateFormat(date)}
+          />
+          <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', backgroundColor: 'white', paddingBottom: 20, }}>
+            <Button
+              title="Confirm"
+              onPress={() => {
+                onDateSelect(selectedDate);
+                onClose();
+              }}
+            />
+            <Button
+              title="Close"
+              onPress={onClose}
+              color="#888"
+            />
+          </View>
+
+        </View>
+      </View>
+    </Modal>
+  );
+};
+
+
+
+
 
 export default function HomeScrFun() {
   const data = [
@@ -34,8 +89,59 @@ export default function HomeScrFun() {
   const sortedData = data.slice().sort((a, b) => a.name.localeCompare(b.name));
   const navigation = useNavigation();
   const [TodayDate, setTodayDate] = useState('Fri, Nov 13 2017')
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedDate, setSelectedDate] = useState('');
+
+  const openModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleDateSelect = (date) => {
+    setSelectedDate(date);
+    console.log("Selected Date:", date);
+  };
+  const handlePreviousDate = () => {
+    // Logic to get the previous date from the selected date
+    // For example, if you're using JavaScript's Date object:
+    const currentDate = new Date(selectedDate);
+    currentDate.setDate(currentDate.getDate() - 1);
+    setSelectedDate(currentDate.toISOString()); // Assuming you want to set the date in ISO format
+  };
+
+  const handleNextDate = () => {
+    // Logic to get the next date from the selected date
+    // For example, if you're using JavaScript's Date object:
+    const currentDate = new Date(selectedDate);
+    currentDate.setDate(currentDate.getDate() + 1);
+    setSelectedDate(currentDate.toISOString()); // Assuming you want to set the date in ISO format
+  };
+
+  const formatDate = (dateString) => {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    const dateObj = new Date(dateString);
+    return dateObj.toLocaleDateString(undefined, options);
+  };
+
+
+  useEffect(() => {
+    const currentDate = new Date();
+    setSelectedDate(currentDate.toISOString()); // Set current date as initial value
+  }, []);
+
+
   return (
     <>
+      <DateSelectorModal
+        isVisible={isModalVisible}
+        onClose={closeModal}
+        onDateSelect={handleDateSelect}
+      />
+
       {/* header img  */}
       <View style={styles.HeaderContainer}>
         <Image
@@ -67,20 +173,22 @@ export default function HomeScrFun() {
         </View>
 
         {/* this is for search  */}
-        <View style={{ flexDirection: 'row' ,justifyContent:'center',alignItems:'center',marginTop:15,}}>
+        <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginTop: 15, }}>
           {/* left arrow  */}
-          <View style={{width:'10%',alignItems:'flex-start'}}>
-            <TouchableOpacity 
-              style={{marginLeft:20}}
+          <View style={{ width: '10%', alignItems: 'flex-start' }}>
+            <TouchableOpacity
+              style={{ marginLeft: 20 }}
+              onPress={handlePreviousDate}
             >
               <AntDesignIcon name="arrowleft" size={20} color="white" solid />
             </TouchableOpacity>
           </View>
 
           {/* Date test  */}
-          <View style={{justifyContent:'center',alignItems:'center',width:'80%'}}>
+          <View style={{ justifyContent: 'center', alignItems: 'center', width: '80%' }}>
             <TouchableOpacity
-              style={{ flexDirection: 'row' ,justifyContent:'center',alignItems: 'center'}}
+              style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}
+              onPress={openModal}
             >
               {/* date icon  */}
               <View>
@@ -88,15 +196,17 @@ export default function HomeScrFun() {
               </View>
               {/* date text  */}
               <View>
-                <Text style={{color:'white',fontSize:16,marginLeft:10,fontWeight:500}}>{TodayDate}</Text>
+                <Text style={{ color: 'white', fontSize: 16, marginLeft: 10, fontWeight: 500 }}>{formatDate(selectedDate)}</Text>
+                {/* <Text style={{ color: 'white', fontSize: 16, marginLeft: 10, fontWeight: 500 }}>{selectedDate}</Text> */}
               </View>
             </TouchableOpacity>
           </View>
 
           {/* right arrow  */}
-          <View style={{width:'10%',alignItems:'flex-end'}}>
+          <View style={{ width: '10%', alignItems: 'flex-end' }}>
             <TouchableOpacity
-              style={{marginRight:20}}
+              style={{ marginRight: 20 }}
+              onPress={handleNextDate}
             >
               <AntDesignIcon name="arrowright" size={20} color="white" solid />
             </TouchableOpacity>
@@ -106,36 +216,36 @@ export default function HomeScrFun() {
       </View>
 
       {/* sercher or filter row  */}
-      <View style={{marginTop:45, marginHorizontal:10,flexDirection:'row',marginBottom:10,justifyContent:'center',alignItems:'center'}}>
+      <View style={{ marginTop: 45, marginHorizontal: 10, flexDirection: 'row', marginBottom: 10, justifyContent: 'center', alignItems: 'center' }}>
         {/* search text  */}
-        <Text style={{color:Vcolor.primary,fontSize:16,fontWeight:500}}>Search</Text>
-        
-        {/* search box  */}
-        <View style={{width:'55%',height:30,borderWidth:1.2,borderColor:Vcolor.primary,marginLeft:20,borderRadius:50,flexDirection:'row', overflow:'hidden'}}>
-          {/* search optical icon  */}
-              <View style={{backgroundColor:Vcolor.primary,borderTopStartRadius:50,borderTopEndRadius:50,borderBottomStartRadius:50 ,height:'100%',width:30,justifyContent:'center',alignItems:'center'}}>
-                <AntDesignIcon name="search1" size={15} color="white" solid />
-              </View>
-          {/* search text  */}
-              <View style={{justifyContent:'center',alignItems:'flex-start',flex:1}}>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Search by WHM ID"
-                  placeholderTextColor={Vcolor.litesecondary} // Example placeholder text color
-                /> 
-              </View>
-                     
-        </View>
-        
-        {/* filter box  */}
-        <View style={{width:'22%',height:30,borderWidth:1.2,borderColor:Vcolor.primary,marginLeft:20,borderRadius:50}}>
+        <Text style={{ color: Vcolor.primary, fontSize: 16, fontWeight: 500 }}>Search</Text>
 
-          <TouchableOpacity style={{width:'100%',height:'100%',alignItems:'flex-end',flexDirection:'row'}}>
+        {/* search box  */}
+        <View style={{ width: '55%', height: 30, borderWidth: 1.2, borderColor: Vcolor.primary, marginLeft: 20, borderRadius: 50, flexDirection: 'row', overflow: 'hidden' }}>
+          {/* search optical icon  */}
+          <View style={{ backgroundColor: Vcolor.primary, borderTopStartRadius: 50, borderTopEndRadius: 50, borderBottomStartRadius: 50, height: '100%', width: 30, justifyContent: 'center', alignItems: 'center' }}>
+            <AntDesignIcon name="search1" size={15} color="white" solid />
+          </View>
+          {/* search text  */}
+          <View style={{ justifyContent: 'center', alignItems: 'flex-start', flex: 1 }}>
+            <TextInput
+              style={styles.input}
+              placeholder="Search by WHM ID"
+              placeholderTextColor={Vcolor.litesecondary} // Example placeholder text color
+            />
+          </View>
+
+        </View>
+
+        {/* filter box  */}
+        <View style={{ width: '22%', height: 30, borderWidth: 1.2, borderColor: Vcolor.primary, marginLeft: 20, borderRadius: 50 }}>
+
+          <TouchableOpacity style={{ width: '100%', height: '100%', alignItems: 'flex-end', flexDirection: 'row' }}>
             {/* filter text  */}
-            <Text style={{color:Vcolor.primary,fontSize:14,fontWeight:500,textAlign:'center',textAlignVertical:'center',height:'100%',flex:1}}>Filter</Text>
+            <Text style={{ color: Vcolor.primary, fontSize: 14, fontWeight: 500, textAlign: 'center', textAlignVertical: 'center', height: '100%', flex: 1 }}>Filter</Text>
 
             {/* dropdown icon  */}
-            <View style={{backgroundColor:Vcolor.primary,borderTopStartRadius:50,borderTopEndRadius:50,borderBottomEndRadius:50,height:'100%',width:30,justifyContent:'center',alignItems:'center'}}>
+            <View style={{ backgroundColor: Vcolor.primary, borderTopStartRadius: 50, borderTopEndRadius: 50, borderBottomEndRadius: 50, height: '100%', width: 30, justifyContent: 'center', alignItems: 'center' }}>
               <AntDesignIcon name="down" size={15} color="white" solid />
             </View>
           </TouchableOpacity>
@@ -156,55 +266,65 @@ export default function HomeScrFun() {
           // </View>
 
           // box 
-          <View style={{borderWidth:1,borderColor:'red',marginTop:15,height:60,justifyContent:'center',alignItems:'center'}}>
-            <View style={{width:'97%',height:'100%',borderWidth:1,borderColor:'green',flexDirection:'row'}}>
+          <View style={{ marginTop: 10, height: 75, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ width: '97%', height: '100%', borderWidth: 1, borderColor: Vcolor.liteprimary, flexDirection: 'row', borderRadius: 10, padding: 5, paddingHorizontal: 10 }}>
 
               {/* water hole id or name and addresssection  */}
-              <View style={{flex:4,backgroundColor:'red'}}>
+              <View style={{ flex: 6, justifyContent: 'space-around', alignItems: 'flex-start' }}>
                 {/* water hole  name or parrent name section  */}
-                <View style={{flexDirection:'row'}}>
+                <View style={{ flexDirection: 'row' }}>
                   {/* water hole id  */}
-                  <View style={{flexDirection:'row'}}>
-                    <Text>WH0002</Text>
+                  <View style={{ flexDirection: 'row', marginRight: 10, justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 14, color: Vcolor.darkprimary, marginEnd: 5 }}>WH0002</Text>
                     <FontAwesomeIcon name="feed" size={15} color="green" solid />
                   </View>
-                  
+
                   {/* water hole parrent id  */}
-                  <View style={{flexDirection:'row'}}>
-                    <Text>Parrent Node: WHM001</Text>
+                  <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ fontSize: 14, color: Vcolor.darkprimary, marginEnd: 5 }}>Host: WHM001</Text>
                     <FontAwesomeIcon name="podcast" size={15} color="green" solid />
                   </View>
+
                 </View>
-                
+
                 {/* water hole address section  */}
-                <View style={{flexDirection:'row'}}>
-                  <FontAwesomeIcon name="map-marker" size={15} color="red" solid/>
-                  <Text>Nayala bag Zone 2</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                  <FontAwesomeIcon name="map-marker" size={15} color="red" solid />
+                  <Text style={{ marginLeft: 5, color: Vcolor.darkprimary }}>Nayala bag Zone 2</Text>
                 </View>
               </View>
 
               {/* water hole level section  */}
-              <View style={{flex:1,backgroundColor:'gray'}}>
+              <View style={{ flex: 2.5, flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
                 {/* for water drop level show icon svg  */}
                 <View>
-                  <WaterDropIcon width={50} height={50} levelfrom={4}/>
+                  <WaterDropIcon width={50} height={50} levelfrom={2} />
                 </View>
 
                 {/* for presentage level section  */}
-                <View>
+                <View style={{ alignItems: 'flex-end', justifyContent: 'center' }}>
 
                   {/* for level presentage  */}
-                  <View>
-                      <Text>10 %</Text>
+                  <View style={{ marginRight: 5, marginBottom: 10 }}>
+                    <Text style={{ color: 'red' }}>10 %</Text>
                   </View>
                   {/* for View more btn  */}
-                  <View>
-                    <TouchableOpacity>
-                      <Text>View More</Text>
+
+                  {/* view btn box  */}
+                  <View style={{ width: 60, height: 20, borderWidth: 1, borderColor: Vcolor.primary, borderRadius: 20 }}>
+
+                    <TouchableOpacity style={{ width: '100%', height: '100%', alignItems: 'flex-end', flexDirection: 'row' }}>
+                      {/* view text  */}
+                      <Text style={{ color: Vcolor.primary, fontSize: 12, fontWeight: 400, textAlign: 'center', textAlignVertical: 'center', height: '100%', flex: 1 }}>View</Text>
+
+                      {/* reightarrow icon  */}
+                      <View style={{ backgroundColor: Vcolor.primary, borderTopStartRadius: 20, borderTopEndRadius: 20, borderBottomEndRadius: 20, height: '100%', width: 15, justifyContent: 'center', alignItems: 'center' }}>
+                        <AntDesignIcon name="right" size={15} color="white" solid />
+                      </View>
                     </TouchableOpacity>
+
                   </View>
                 </View>
-
               </View>
 
             </View>
