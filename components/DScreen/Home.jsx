@@ -8,57 +8,57 @@ import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import { useNavigation } from '@react-navigation/native';
 import Vcolor from '../../global';
 import WaterDropIcon from '../svg/WaterDrop';
+import DateSelectorModal from '../Module/DatePicker';
 
 
+// // date picker 
+// import DatePicker from 'react-native-modern-datepicker';
 
-// date picker 
-import DatePicker from 'react-native-modern-datepicker';
-
-const DateSelectorModal = ({ isVisible, onClose, onDateSelect }) => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const convertDateFormat = (dateString) => {
-    // Split the date string into parts
-    const [year, month, day] = dateString.split('/');
+// const DateSelectorModal = ({ isVisible, onClose, onDateSelect }) => {
+//   const [selectedDate, setSelectedDate] = useState(new Date());
+//   const convertDateFormat = (dateString) => {
+//     // Split the date string into parts
+//     const [year, month, day] = dateString.split('/');
   
-    // Concatenate the parts with hyphens
-    const formattedDate = `${year}-${month}-${day}`;
+//     // Concatenate the parts with hyphens
+//     const formattedDate = `${year}-${month}-${day}`;
   
-    setSelectedDate(formattedDate) ;
-  };
+//     setSelectedDate(formattedDate) ;
+//   };
 
-  return (
-    <Modal
-      visible={isVisible}
-      animationType="slide"
-      transparent={true}
-      onRequestClose={onClose}
-    >
-      <View style={{ flex: 1, backgroundColor: 'rgba(166,217,248,0.7)', justifyContent: 'center' }}>
-        <View style={{ backgroundColor: 'white', padding: 20 }}>
-          <Text style={{ textAlign: 'center', backgroundColor: 'white', padding: 10, borderWidth: 1, borderColor: Vcolor.primary, color: Vcolor.primary, borderRadius: 50, fontWeight: 700 }}>Select Date</Text>
-          <DatePicker
-            onSelectedChange={date => convertDateFormat(date)}
-          />
-          <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', backgroundColor: 'white', paddingBottom: 20, }}>
-            <Button
-              title="Confirm"
-              onPress={() => {
-                onDateSelect(selectedDate);
-                onClose();
-              }}
-            />
-            <Button
-              title="Close"
-              onPress={onClose}
-              color="#888"
-            />
-          </View>
+//   return (
+//     <Modal
+//       visible={isVisible}
+//       animationType="slide"
+//       transparent={true}
+//       onRequestClose={onClose}
+//     >
+//       <View style={{ flex: 1, backgroundColor: 'rgba(166,217,248,0.7)', justifyContent: 'center' }}>
+//         <View style={{ backgroundColor: 'white', padding: 20 }}>
+//           <Text style={{ textAlign: 'center', backgroundColor: 'white', padding: 10, borderWidth: 1, borderColor: Vcolor.primary, color: Vcolor.primary, borderRadius: 50, fontWeight: 700 }}>Select Date</Text>
+//           <DatePicker
+//             onSelectedChange={date => convertDateFormat(date)}
+//           />
+//           <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', alignItems: 'center', backgroundColor: 'white', paddingBottom: 20, }}>
+//             <Button
+//               title="Confirm"
+//               onPress={() => {
+//                 onDateSelect(selectedDate);
+//                 onClose();
+//               }}
+//             />
+//             <Button
+//               title="Close"
+//               onPress={onClose}
+//               color="#888"
+//             />
+//           </View>
 
-        </View>
-      </View>
-    </Modal>
-  );
-};
+//         </View>
+//       </View>
+//     </Modal>
+//   );
+// };
 
 
 
@@ -102,7 +102,7 @@ export default function HomeScrFun() {
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
-    console.log("Selected Date:", date);
+    // console.log("Selected Date:", date);
   };
   const handlePreviousDate = () => {
     // Logic to get the previous date from the selected date
@@ -311,10 +311,8 @@ export default function HomeScrFun() {
                     <Text style={{ color: 'red' }}>10 %</Text>
                   </View>
                   {/* for View more btn  */}
-
                   {/* view btn box  */}
                   <View style={{ width: 60, height: 20, borderWidth: 1, borderColor: Vcolor.primary, borderRadius: 20 }}>
-
                     <TouchableOpacity style={{ width: '100%', height: '100%', alignItems: 'flex-end', flexDirection: 'row' }}
                      onPress={() => navigation.navigate('Details', { itemId: item.id })} // Pass item ID to Details screen
                     >
@@ -325,11 +323,9 @@ export default function HomeScrFun() {
                         <AntDesignIcon name="right" size={15} color="white" solid />
                       </View>
                     </TouchableOpacity>
-
                   </View>
                 </View>
               </View>
-
             </View>
           </View>
         )}

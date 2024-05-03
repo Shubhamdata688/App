@@ -30,7 +30,7 @@ const DrawerNav = ({ handleLogout }) => (
     <Drawer.Screen name="Home" component={HomeScrFun} options={{ headerShown: false }} />
     <Drawer.Screen name="Profile" component={ProfileScrFun} options={{ headerShown: true }} />
     <Drawer.Screen name="Notification" component={NotificationScrFun} options={{ headerShown: true }} />
-    <Drawer.Screen name="Details" component={DetailsViewScrFun} options={{ headerShown: true }} />
+    <Drawer.Screen name="Details" component={DetailsViewScrFun} options={{ headerShown: true ,headerStyle: {backgroundColor:Vcolor.liteprimary}}} />
     <Drawer.Screen name="Download" component={DownloadScrFun} options={{ headerShown: true }} />
   </Drawer.Navigator>
 );
