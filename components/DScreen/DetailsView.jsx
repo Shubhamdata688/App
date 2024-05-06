@@ -6,6 +6,8 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import WaterDropIcon from '../svg/WaterDrop';
 import DateSelectorModal from '../Module/DatePicker';
+import DetailsExcelView from '../DScreen/DetailsExcelView'
+
 import {
   LineChart,
   BarChart,
@@ -16,6 +18,9 @@ import {
 } from "react-native-chart-kit";
 
 import { Dimensions } from "react-native";
+
+import { TableView } from 'react-native-responsive-table';
+
 const screenWidth = Dimensions.get("window").width;
 
 
@@ -52,10 +57,10 @@ const DetailsViewScrFun = () => {
   const GraphData = {
     labels: [
       " 1", " 2", " 3", " 4", " 5", " 6",
-    " 7", " 8", " 9", " 10", " 11", " 12",
-    " 13", " 14", " 15", " 16", " 17", " 18",
-    " 19", " 20", " 21", " 22", " 23", " 24",
-    " 25", " 26", " 27", " 28",
+      " 7", " 8", " 9", " 10", " 11", " 12",
+      " 13", " 14", " 15", " 16", " 17", " 18",
+      " 19", " 20", " 21", " 22", " 23", " 24",
+      " 25", " 26", " 27", " 28",
     ],
     datasets: [
       {
@@ -63,7 +68,7 @@ const DetailsViewScrFun = () => {
           20, 45, 28, 80, 99, 43, 65, 30, 55, 75, 88, 22, 60, 45, 35, 70, 42,
           95, 33, 50, 25, 90, 40, 15, 75, 65, 80
         ],
-        color: (opacity = 1) =>'white', // optional
+        color: (opacity = 1) => 'white', // optional
         strokeWidth: 3 // optional
       }
     ],
@@ -72,11 +77,30 @@ const DetailsViewScrFun = () => {
 
   const handleMapPress = () => {
     const latitude = 26.892606253280935; // Example latitude
-    const longitude =  75.81535673412989; // Example longitude
+    const longitude = 75.81535673412989; // Example longitude
     const mapUrl = `https://www.google.com/maps?q=${latitude},${longitude}`;
 
     Linking.openURL(mapUrl);
   };
+
+  const DataTableHeader = [
+    { name: "S.no.", reference_key: "no" },
+    { name: "Name", reference_key: "name" },
+    { name: "Age", reference_key: "age" },
+    { name: "Email", reference_key: "email" },
+    { name: "Phone", reference_key: "phone" },
+    { name: "Address", reference_key: "address" },
+    { name: "City", reference_key: "city" },
+    { name: "State", reference_key: "state" },
+    { name: "Country", reference_key: "country" },
+    { name: "Department", reference_key: "department" },
+  ];
+
+  const DataTableData = [
+    { no: 1, name: "John", age: 25, email: "john@example.com", phone: "123-456-7890", address: "123 Main St", city: "New York", state: "NY", country: "USA", department: "Engineering" },
+    { no: 2, name: "Snow", age: 23, email: "snow@example.com", phone: "987-654-3210", address: "456 Elm St", city: "Los Angeles", state: "CA", country: "USA", department: "Marketing" },
+    // Add more rows as needed
+  ];
 
 
   return (
@@ -311,11 +335,40 @@ const DetailsViewScrFun = () => {
             }}
           />
 
+          {/*  chart sheet for water hole data  */}
+          <DetailsExcelView/>
+
+
         </ScrollView>
       </View>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: { 
+    flex: 1, 
+    padding: 16, 
+    paddingTop: 30, 
+    backgroundColor: '#ffffff' 
+  },
+  head: { 
+    height: 50, 
+    backgroundColor: '#6F7BD9' 
+  },
+  text: { 
+    textAlign: 'center', 
+    fontWeight: '200' 
+  },
+  dataWrapper: { 
+    marginTop: -1 
+  },
+  row: { 
+    height: 40, 
+    backgroundColor: '#F7F8FA' 
+  }
+});
+
 
 export default DetailsViewScrFun;
 
