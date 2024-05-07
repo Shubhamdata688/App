@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "nup",
-    "slug": "nup",
+    "slug": "test-whm-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -26,6 +26,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "805ef67f-4841-4343-bf53-e8804dd95998"
+      }
+    },
+    "owner": "shubham192116"
   }
 }

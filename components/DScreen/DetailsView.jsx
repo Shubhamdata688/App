@@ -18,9 +18,6 @@ import {
 } from "react-native-chart-kit";
 
 import { Dimensions } from "react-native";
-
-import { TableView } from 'react-native-responsive-table';
-
 const screenWidth = Dimensions.get("window").width;
 
 
@@ -83,25 +80,10 @@ const DetailsViewScrFun = () => {
     Linking.openURL(mapUrl);
   };
 
-  const DataTableHeader = [
-    { name: "S.no.", reference_key: "no" },
-    { name: "Name", reference_key: "name" },
-    { name: "Age", reference_key: "age" },
-    { name: "Email", reference_key: "email" },
-    { name: "Phone", reference_key: "phone" },
-    { name: "Address", reference_key: "address" },
-    { name: "City", reference_key: "city" },
-    { name: "State", reference_key: "state" },
-    { name: "Country", reference_key: "country" },
-    { name: "Department", reference_key: "department" },
-  ];
-
-  const DataTableData = [
-    { no: 1, name: "John", age: 25, email: "john@example.com", phone: "123-456-7890", address: "123 Main St", city: "New York", state: "NY", country: "USA", department: "Engineering" },
-    { no: 2, name: "Snow", age: 23, email: "snow@example.com", phone: "987-654-3210", address: "456 Elm St", city: "Los Angeles", state: "CA", country: "USA", department: "Marketing" },
-    // Add more rows as needed
-  ];
-
+  const handelDownloadPress = () => {
+    Alert.alert('Downloading','Excel Fil send on your register Email Address')
+    console.log('Handel Download Press');
+  };
 
   return (
     <View style={{ flex: 1, backgroundColor: Vcolor.liteprimary, justifyContent: 'center', alignItems: 'center' }}>
@@ -247,7 +229,7 @@ const DetailsViewScrFun = () => {
 
               <View>
                 <Image
-                  source={require('../../assets/image/OWI.png')}
+                  source={require('../../assets/image/OWI2.jpg')}
                   style={{ height: 150, width: 200, borderRadius: 10 }}
                   resizeMode="stretch"
                 />
@@ -271,7 +253,7 @@ const DetailsViewScrFun = () => {
 
               <View>
                 <Image
-                  source={require('../../assets/image/OWI.png')}
+                  source={require('../../assets/image/OWI2.jpg')}
                   style={{ height: 150, width: 200, borderRadius: 10 }}
                   resizeMode="stretch"
                 />
@@ -295,7 +277,7 @@ const DetailsViewScrFun = () => {
 
               <View>
                 <Image
-                  source={require('../../assets/image/OWI.png')}
+                  source={require('../../assets/image/OWI2.jpg')}
                   style={{ height: 150, width: 200, borderRadius: 10 }}
                   resizeMode="stretch"
                 />
@@ -334,7 +316,15 @@ const DetailsViewScrFun = () => {
               borderRadius: 16
             }}
           />
-
+          <View style={{justifyContent:'flex-end',padding:5,alignItems:'flex-end'}}>
+              <TouchableOpacity style={{paddingHorizontal:10,borderWidth:1,borderRadius:20,borderColor:Vcolor.darkprimary,width:120,backgroundColor:Vcolor.darkprimary}}
+                onPress={handelDownloadPress}
+              >
+                <Text style={{textAlign:'center',textAlignVertical:'center',padding:2,color:'#ffffff',fontWeight:500}}>
+                    Download X
+                </Text>
+              </TouchableOpacity>
+          </View>
           {/*  chart sheet for water hole data  */}
           <DetailsExcelView/>
 

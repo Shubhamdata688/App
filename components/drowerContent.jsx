@@ -14,7 +14,7 @@ const DrawerList = [
   { icon: 'card-account-details', label: 'Profile', navigateTo: 'Profile' },
   { icon: 'bell-badge', label: 'Notification', navigateTo: 'Notification' },
   { icon: 'ballot', label: 'Details', navigateTo: 'Details' },
-  { icon: 'cloud-download', label: 'Download', navigateTo: 'Download' }, ]
+  { icon: 'cloud-download', label: 'Download', navigateTo: 'Details' }, ]
 
 const DrawerLayout = ({ icon, label, navigateTo }) => {
   const navigation = useNavigation();
