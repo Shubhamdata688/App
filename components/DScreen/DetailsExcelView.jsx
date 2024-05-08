@@ -58,8 +58,8 @@ const DetailsExcelView = () => {
                   key={index}
                   data={tableHead.map(header => dataRow[header])}
                   widthArr={widthArr}
-                  style={[styles.row, index % 2 && { backgroundColor: '#ffffff' }]}
-                  textStyle={styles.text}
+                  style={styles.row}
+                  textStyle={styles.text} // Ensure textStyle is provided as an object
                 />
               ))}
             </Table>
